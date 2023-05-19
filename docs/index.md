@@ -2,17 +2,17 @@
 layout: home
 
 hero:
-  name: 东方小月的博客
-  text: 随便写点啥.
-  tagline: 帅气又迷人的小月
+  name: VueSurplus
+  text: 组合函数工具集
+  tagline: 一个Vue3的组合函数工具集。
   image:
-    src: /logo.png
-    alt: Kitty
+    src: https://d33wubrfki0l68.cloudfront.net/2f6479d73bc25170dc532dd42e059166573bf478/61057/favicon.svg
+    alt: VueSurplus
   actions:
     - theme: brand
-      text: 快来快来
+      text: 快速上手
       link: /articles/组件库环境搭建
     - theme: alt
-      text: View on Gitee
+      text: GitHub
       link: https://gitee.com/geeksdidi
 ---
