@@ -4,7 +4,7 @@ export default defineConfig({
     description: 'A composition function toolset of vue3',
     lang: 'en-US',
     ignoreDeadLinks: true,
-
+    base:'vue-surplus',
     themeConfig: {
         logo: '/favicon.svg',
 
