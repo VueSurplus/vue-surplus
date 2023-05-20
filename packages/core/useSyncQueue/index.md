@@ -1,11 +1,14 @@
----
-category: State
-related: createSharedComposable
----
 
 # createGlobalState
 
 Keep states in the global scope to be reusable across Vue instances.
+
+## demo
+<script setup>
+  import demo from './demo.vue'
+</script>
+
+<demo></demo>
 
 ## Usage
 

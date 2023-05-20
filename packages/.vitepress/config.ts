@@ -32,7 +32,7 @@ export default defineConfig({
                         text: "简介",
                         link: "/guide/",
                     },
-                    { text: "快速上手", link: "/guide" },
+                    { text: "快速上手", link: "/guide/" },
                 ]
             }],
             "/core/": [{
