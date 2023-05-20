@@ -11,7 +11,7 @@ hero:
   actions:
     - theme: brand
       text: 快速上手
-      link: /articles/组件库环境搭建
+      link: /guide/
     - theme: alt
       text: GitHub
       link: https://github.com/VueSurplus/vue-surplus
