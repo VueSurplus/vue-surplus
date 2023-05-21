@@ -36,8 +36,8 @@ export default defineConfig({
                 ]
             }],
             "/core/": [{
-                text: "useSyncQueue",
-                link: "/core/useSyncQueue/"
+                text: "useClone",
+                link: "/core/useClone/"
             }]
         }
     },
