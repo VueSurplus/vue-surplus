@@ -1,8 +1,3 @@
-/**
- * @description: 优化点
- * 1.passive语义不明确
- * @return {*}
- */
 import { cloneDeep } from 'lodash-es'
 import { UnwrapRef, computed, getCurrentInstance, ref, watch } from 'vue'
 
@@ -18,13 +13,7 @@ export interface UseUpdatePropOptions {
     defaultValue?: any
 }
 
-/**
- * @description: 更新props钩子，v-model也是其中的一种
- * refer to VueUse useVModel
- * @param {T} porps
- * @param {keyof T} key
- * @param {object} options
- */
+
 export function useUpdateProp<T extends object, K extends keyof T>(props: T, key?: K, options?: UseUpdatePropOptions): any
 export function useUpdateProp<T extends object, K extends keyof T>(props: T, options: UseUpdatePropOptions): any
 export function useUpdateProp<T extends object, K extends keyof T>(props: T, key: K = '' as K, options: UseUpdatePropOptions = {}): any {

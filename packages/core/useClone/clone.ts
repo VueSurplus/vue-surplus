@@ -1,7 +1,7 @@
 import { isReactive, unref, watch } from "vue";
 import { getTypeof } from "../utils/getTypeOf";
 
-export function cloned<T extends object>(source: T, options?: { deep: boolean, manual: boolean }): T {
+export function cloned<T>(source: T, options?: { deep: boolean, manual: boolean }): T {
     const sourceType = getTypeof(source)
     let cloneData
     if (sourceType === "array") {

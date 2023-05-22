@@ -3,31 +3,20 @@
 
 拷贝对象，`ref` 和 `reactive` 响应式对象返回一个普通对象。
 
-## demo
-<script setup>
-  import demo from './demo.vue'
-</script>
+## 使用
 
-<demo></demo>
-
-## Usage
-
-### Without Persistence (Store in Memory)
+### 复制普通对象
 
 ```js
-// store.js
-import { ref } from 'vue'
-import { createGlobalState } from '@vueuse/core'
-
-export const useGlobalState = createGlobalState(
-  () => {
-    const count = ref(0)
-    return { count }
-  }
-)
+import { useClone } from './vue-surplus'
+const state = {
+    count: 0,
+    text: 'demo'
+}
+const copyState=useClone(state)
 ```
 
-A bigger example:
+### 将响应对象转换为普通对象
 
 ```js
 // store.js
