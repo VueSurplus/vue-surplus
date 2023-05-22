@@ -1,5 +1,5 @@
 <script setup>
-import { isReactive, isRef, reactive, ref } from 'vue';
+import { isReactive, isRef, reactive, ref, watch } from 'vue';
 import { useClone } from './index'
 const state = {
     count: 0,
@@ -10,6 +10,15 @@ const stateReactive = reactive(state)
 const stateCloned = useClone(state)
 const stateRefCloned = useClone(stateRef)
 const stateReactiveCloned = useClone(stateReactive)
+const stateWatchCloned = useClone(stateReactive, { deep: true, manual: true })
+debugger
+console.log(JSON.stringify(stateWatchCloned))
+watch(stateReactive, () => {
+    console.log(JSON.stringify(stateWatchCloned))
+})
+stateReactive.count = 2
+
+
 </script>
 <template>
     <div>state:{{ state }}</div>

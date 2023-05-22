@@ -23,16 +23,18 @@ export function cloned<T>(source: T, options?: { deep: boolean, manual: boolean 
 }
 
 export function cloneReactive<T extends object>(source: T, options?: { deep: boolean, manual: boolean }) {
-    source = unref(source)
+   let  value = unref(source)
     if (isReactive(source)) {
-        source = cloned(source, options)
+        value = cloned(source, options)
     }
     if (options?.manual) {
         watch(source, () => {
-            cloneReactive(source, { deep: options.deep, manual: false })
-        },
-            { ...options, immediate: true })
+            debugger
+            const cloneData = cloneReactive(source, { deep: options.deep, manual: false })
+            Object.assign(value, cloneData)
+        }, { ...options,deep:true }
+        )
     }
-    return source
+    return value
 
 }
