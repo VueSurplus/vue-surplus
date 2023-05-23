@@ -22,7 +22,7 @@ export default defineConfig({
         ],
         nav: [
             { text: "文档", link: "/guide/" },
-            { text: "API", link: '/core/useSyncQueue/' }
+            { text: "API", link: '/core/useClone/' }
         ],
         sidebar: {
             "/guide/": [{
