@@ -3,12 +3,6 @@
 
 拷贝对象，`ref` 和 `reactive` 响应式对象返回一个普通对象。
 
-<script setup>
-  import DemoContainer from '../../.vitepress/theme/components/DemoContainer.vue'
-</script>
-
-<DemoContainer />
-
 ## 使用
 
 ```js
@@ -18,7 +12,7 @@ const copyState=useClone(state, options)
 options: `object`
 
 - deep: `boolean` 是否深复制
-- manual: `boolean` 复制的普通对象和state值同步
+- manual: `boolean` 复制的普通对象和 `state` 值同步
 
 ### 复制普通对象
 
@@ -30,7 +24,6 @@ const state = {
 }
 const copyState=useClone(state)
 console.log(copyState) // { count: 0, text: 'demo' }
-
 
 ```
 
@@ -69,7 +62,7 @@ watch(stateReactive, () => {
 stateReactive.count = 2
 ```
 
-## 场景
+## 使用场景
 
 ### 拷贝对象
 
@@ -85,82 +78,64 @@ const copyState=useClone(state)
 console.log(copyState) // { count: 0, text: 'demo' }
 ```
 
-### Proxy处理数组
+### Proxy 处理数组
 
-Vue3通过proxy来实现响应式，但是proxy在对大数据量的数组进行unshift操作时会有性能问题。
+Vue3 通过 `Proxy` 来实现响应式，但是 `Proxy` 在对大数据量的数组进行 `unshift` 操作时会有性能问题。
 
 ```html
-<div id="app">
-  <div>{{ arr.length }}</div>
-  <button @click="onClick">click</button>
-</div>
+<script lang="ts" setup>
+import { ref } from 'vue';
 
-<script>
-  const { createApp } = Vue;
-
-  const len = 1000000;
-  const arr = new Array(len);
-  for (let i = 0; i < len; i++) {
+const len = 1000000;
+const arr = new Array(len);
+for (let i = 0; i < len; i++) {
     arr[i] = { id: i, name: "test" };
-  }
-
-  createApp({
-    data() {
-      return {
-        arr,
-      };
-    },
-    methods: {
-      onClick() {
-        const list=[]
-        for (let i = 0; i < 50; i++) list.push({ a: 1 });
-        this.arr.unshift(...list)
-      },
-    },
-  }).mount("#app");
+}
+const arrRef = ref(arr)
+const onClick = () => {
+    const list: any[] = []
+    for (let i = 0; i < 50; i++) list.push({ a: 1 });
+    arrRef.value.unshift(...list)
+}
 </script>
+<template>
+    <div>{{ arr.length }}</div>
+    <button @click="onClick">click</button>
+</template>
 ```
 
-可以采用将Proxy数组转为普通数组然后进行操作在转为Proxy，因为创建Proxy的性能要比unshift Proxy数组带来的副作用性能少很多。
+可以采用将 `Proxy` 数组转为普通数组然后进行操作在转为 `Proxy` ，因为创建 `Proxy` 的性能要比 `Proxy` 数组 `unshift` 性能少很多。
+
+> 这种方式只适用于数组单纯作为展示。
 
 ```html
-<div id="app">
-  <div>{{ arr.length }}</div>
-  <button @click="onClick">click</button>
-</div>
+<script lang="ts" setup>
+import { ref } from 'vue';
+import { useClone } from './vue-surplus'
 
-<script>
-  import { useClone } from './vue-surplus'
-  const { createApp,Ref } = Vue;
-
-  const len = 1000000;
-  const arr = new Array(len);
-  for (let i = 0; i < len; i++) {
+const len = 1000000;
+const arr = new Array(len);
+for (let i = 0; i < len; i++) {
     arr[i] = { id: i, name: "test" };
-  }
-
-  createApp({
-    data() {
-      return {
-        arr,
-      };
-    },
-    methods: {
-      onClick() {
-        const arrClone=useClone(this.arr)
-        const list=[]
-        for (let i = 0; i < 50; i++) list.push({ a: 1 });
-        arrClone.unshift(...list)
-        this.arr=Ref(arrClone)
-      },
-    },
-  }).mount("#app");
+}
+const arrRef = ref(arr)
+const onClick = () => {
+    const list: any[] = []
+    const arrClone = useClone(arrRef)
+    for (let i = 0; i < 50; i++) list.push({ a: 1 });
+    arrClone.unshift(...list)
+    arrRef.value = arrClone
+}
 </script>
+<template>
+    <div>{{ arr.length }}</div>
+    <button @click="onClick">click</button>
+</template>
 ```
 
 ### 表单初始化
 
-查看详情时经常要给表单项赋值初始值，一般是通过props传给表单组件。vue不推荐子组件直接修改props传递来对象值，所有需要在子组件中新建一个状态。
+查看详情时经常要给表单项赋值初始值，一般是通过 `props` 传给表单组件。vue 不推荐子组件直接修改 `props` 传递来对象值，所有需要在子组件中新建一个状态。
 
 ```js
 import { reactive } from 'vue';
@@ -177,4 +152,4 @@ const formData = reactive(useClone(props.formData))
 
 ### 表单提交
 
-表单提交时往往要对值进行格式化处理，直接在相应对象上处理会触发依赖副作用，可以使用useClone来复制一个普通对象进行操作。
+表单提交时往往要对值进行格式化处理，直接在相应对象上处理会触发依赖副作用，可以使用 `useClone` 来复制一个普通对象进行操作。
