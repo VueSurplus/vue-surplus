@@ -1,7 +1,7 @@
 
 # useClone
 
-拷贝对象，`ref` 和 `reactive` 响应式对象返回一个普通对象。
+复制对象，`ref` 和 `reactive` 响应式对象复制成一个普通对象。
 
 ## 使用
 
@@ -27,7 +27,7 @@ console.log(copyState) // { count: 0, text: 'demo' }
 
 ```
 
-### 将响应对象转换为普通对象
+### 将响应对象复制为普通对象
 
 ```js
 import { isReactive, isRef, reactive, ref } from 'vue';
@@ -44,7 +44,7 @@ console.log(stateRefCloned) // { count: 0, text: 'demo' }
 console.log(stateReactiveCloned) // { count: 0, text: 'demo' }
 ```
 
-### 响应复制
+### 复制对象同步响应对象的值变动
 
 ```js
 import { reactive, watch } from 'vue';
@@ -64,9 +64,9 @@ stateReactive.count = 2
 
 ## 使用场景
 
-### 拷贝对象
+### 复制对象
 
-实现对象的深拷贝和浅拷贝。
+实现对象的深复制和浅复制。
 
 ```js
 import { useClone } from './vue-surplus'
