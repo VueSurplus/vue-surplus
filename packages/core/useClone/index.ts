@@ -7,8 +7,13 @@ export interface cloneOptions<T = any> {
     manual?: boolean
 }
 
-export function useClone<T>(source: T, options: cloneOptions={}): T {
-    let { deep = false, clone, manual = false } = options!
+export function useClone<T extends object>(source: T, deep: boolean)
+export function useClone<T extends object>(source: T, options: cloneOptions | boolean = {}): T {
+    let deep: boolean = false
+    let clone: ((source: T, deep?: { deep: boolean, manual: boolean }) => T) | undefined = undefined
+    let manual: boolean = false
+    if (typeof options === 'boolean') { deep = options }
+    else { ({ deep=false, clone, manual=false } = options) }
     if (isRef(source) || isReactive(source)) {
         clone ||= cloneReactive
     } else {

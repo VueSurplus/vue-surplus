@@ -6,15 +6,17 @@
 ## 使用
 
 ```js
-const copyState=useClone(state, options)
+const copyState=useClone(state, boolen|options)
 ```
 
 options: `object`
 
-- deep: `boolean` 是否深复制
-- manual: `boolean` 复制的普通对象和 `state` 值同步
+- deep: `boolean` 是否深拷贝,默认是浅拷贝。
+- manual: `boolean` 复制的普通对象和 `state` 值同步。
 
 ### 复制普通对象
+
+浅拷贝：
 
 ```js
 import { useClone } from './vue-surplus'
@@ -23,6 +25,21 @@ const state = {
     text: 'demo'
 }
 const copyState=useClone(state)
+console.log(copyState) // { count: 0, text: 'demo' }
+
+```
+
+深拷贝：
+
+```js
+import { useClone } from './vue-surplus'
+const state = {
+    count: 0,
+    text: 'demo'
+}
+const copyState = useClone(state, true) 
+//or const copyState=useClone(state, {deep:true})
+
 console.log(copyState) // { count: 0, text: 'demo' }
 
 ```
@@ -153,3 +170,26 @@ const formData = reactive(useClone(props.formData))
 ### 表单提交
 
 表单提交时往往要对值进行格式化处理，直接在相应对象上处理会触发依赖副作用，可以使用 `useClone` 来复制一个普通对象进行操作。
+
+```html
+<script lang="ts" setup>
+import { reactive } from 'vue';
+import { useClone } from 'vue-surplus';
+
+const loginInfo = reactive({
+    userName: '',
+    passWord: ''
+})
+const data = useClone(loginInfo, { deep: true, menubar: true })
+const handleLogin = () => {
+    // 密码加密
+    data.passWord=md5(data.passWord)
+    // 发送请求...
+}
+</script>
+<template>
+    <input v-model="loginInfo.userName" type="tex" />
+    <input v-model="loginInfo.passWord" type="password" />
+    <button @click="handleLogin">登录</button>
+</template>
+```
