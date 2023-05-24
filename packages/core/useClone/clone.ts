@@ -1,5 +1,6 @@
 import { isReactive, unref, watch } from "vue";
 import { getTypeof } from "../utils/getTypeOf";
+import { useAssignDeep } from "../useAssignDeep";
 
 export function cloned<T>(source: T, options?: { deep: boolean, manual: boolean }): T {
     const sourceType = getTypeof(source)
@@ -23,17 +24,42 @@ export function cloned<T>(source: T, options?: { deep: boolean, manual: boolean 
 }
 
 export function cloneReactive<T extends object>(source: T, options?: { deep: boolean, manual: boolean }) {
-   let  value = unref(source)
+    let value = unref(source)
     if (isReactive(source)) {
         value = cloned(source, options)
     }
     if (options?.manual) {
         watch(source, () => {
             const cloneData = cloneReactive(source, { deep: options.deep, manual: false })
-            Object.assign(value, cloneData)
-        }, { ...options,deep:true }
+            useAssignDeep(value, cloneData)
+        }, { ...options, deep: true }
         )
     }
     return value
 
+}
+
+export function cloneDeep<T extends object>(source: T) {
+    let id = 0
+    const cacheArray: any[] = [{ instance: source }]
+    const result = {}
+    let cach = result
+    const cacheSource = {}
+    let pop = cacheArray.pop()
+
+    while (pop) {
+        pop.id && (cach = cacheSource[pop.id])
+        Object.keys(pop.instance).forEach(key => {
+            if (getTypeof(pop.instance[key]) === 'object') {
+                cacheArray.push({ instance: pop.instance[key], id: id })
+                cacheSource[id] = {}
+                cach[key] = cacheSource[id]
+                id++
+            } else {
+                cach[key] = pop.instance[key]
+            }
+        })
+        pop = cacheArray.pop()
+    }
+    return result
 }

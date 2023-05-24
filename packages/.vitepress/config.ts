@@ -13,7 +13,7 @@ export default defineConfig({
     themeConfig: {
         siteTitle: "VueSurplus",
         logo: "/logo.png",
-        outlineTitle:'目录',
+        outlineTitle: '目录',
         // footer: {
         //     message: 'Released under the MIT License.'
         // },
@@ -38,6 +38,9 @@ export default defineConfig({
             "/core/": [{
                 text: "useClone",
                 link: "/core/useClone/"
+            }, {
+                text: "useAssignDeep",
+                link: "/core/useAssignDeep/"
             }]
         }
     },
