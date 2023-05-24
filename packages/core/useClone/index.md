@@ -13,6 +13,7 @@ options: `object`
 
 - deep: `boolean` 是否深拷贝,默认是浅拷贝。
 - manual: `boolean` 复制的普通对象和 `state` 值同步。
+- clone: 自定义规则。
 
 ### 复制普通对象
 
@@ -77,6 +78,20 @@ watch(stateReactive, () => {
     console.log(JSON.stringify(stateWatchCloned)) // { count: 2, text: 'demo' }
 })
 stateReactive.count = 2
+```
+
+### 自定义规则
+
+```js
+import { useClone } from './vue-surplus'
+const state = {
+    count: 0,
+    text: 'demo'
+}
+const copyState = useClone((source) => ({ count: source.count + 1, text: source.text }))
+
+console.log(copyState) // { count: 1, text: 'demo' }
+
 ```
 
 ## 使用场景

@@ -29,7 +29,6 @@ export function cloneReactive<T extends object>(source: T, options?: { deep: boo
     }
     if (options?.manual) {
         watch(source, () => {
-            debugger
             const cloneData = cloneReactive(source, { deep: options.deep, manual: false })
             Object.assign(value, cloneData)
         }, { ...options,deep:true }

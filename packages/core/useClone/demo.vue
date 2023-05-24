@@ -7,18 +7,23 @@ const state = {
 }
 const stateRef = ref(state)
 const stateReactive = reactive(state)
-const stateCloned = useClone(state)
+const stateCloned = useClone(state, true)
 const stateRefCloned = useClone(stateRef)
 const stateReactiveCloned = useClone(stateReactive)
 const stateWatchCloned = useClone(stateReactive, { deep: true, manual: true })
-debugger
 console.log(JSON.stringify(stateWatchCloned))
 watch(stateReactive, () => {
     console.log(JSON.stringify(stateWatchCloned))
 })
 stateReactive.count = 2
+import { useClone } from './vue-surplus'
+const state = {
+    count: 0,
+    text: 'demo'
+}
+const copyState = useClone((source) => ({ count: source.count + 1, text: source.text }))
 
-
+console.log(copyState) // { count: 0, text: 'demo' }
 </script>
 <template>
     <div>state:{{ state }}</div>
