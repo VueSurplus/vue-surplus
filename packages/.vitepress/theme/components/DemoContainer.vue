@@ -1,11 +1,8 @@
 <script lang="ts" setup>
-// import demo from '../../../core/useAssignDeep/demo.vue'
+import demo from '../../../core/useAssignDeep/demo.vue'
 
-// const props = defineProps<{ moduleName: object }>()
+const props = defineProps<{ moduleName: object }>()
 
-import { cloneDeep } from '../../../core/useClone/clone';
-
-console.log(cloneDeep({ a: 1, b: { c: 2, d: { m: 3 } } }))
 
 </script>
 <template>

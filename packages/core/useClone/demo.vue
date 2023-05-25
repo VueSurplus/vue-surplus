@@ -16,14 +16,7 @@ watch(stateReactive, () => {
     console.log(JSON.stringify(stateWatchCloned))
 })
 stateReactive.count = 2
-import { useClone } from './vue-surplus'
-const state = {
-    count: 0,
-    text: 'demo'
-}
-const copyState = useClone((source) => ({ count: source.count + 1, text: source.text }))
 
-console.log(copyState) // { count: 0, text: 'demo' }
 </script>
 <template>
     <div>state:{{ state }}</div>
