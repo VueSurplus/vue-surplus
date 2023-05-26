@@ -10,7 +10,6 @@ export function getTypeof(source:any){
         "[object Undefined]": "undefined",
         "[object Date]": "date",
         "[object RegExp]": "regexp",
-        "[object Proxy]":"proxy",
         "[Object Symbol]":"symbol"
       };
       const toString = Object.prototype.toString;

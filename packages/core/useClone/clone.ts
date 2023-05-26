@@ -2,25 +2,28 @@ import { isReactive, unref, watch } from "vue";
 import { getTypeof } from "../utils/getTypeOf";
 import { useAssignDeep } from "../useAssignDeep";
 
-export function cloned<T>(source: T, options?: { deep: boolean, manual: boolean }): T {
-    const sourceType = getTypeof(source)
-    let cloneData
-    if (sourceType === "array") {
-        cloneData = [];
-        if (options?.deep) (<any[]>source).forEach((item) => cloneData.push(cloned(item, options)));
-        else cloneData = [...<any[]>source];
-    } else if (sourceType === "object") {
-        cloneData = {};
-        if (options?.deep)
-            for (var key in source) {
-                cloneData[key] = cloned(source[key], options);
+function cloneDeep<T>(source: T): T {
+    const result = {}
+    const stack: any[] = [{ data: source, cloned: result }]
+    while (stack.length) {
+        let { cloned, data } = stack.pop()!;
+        for (let key in data) {
+            if (getTypeof(data[key]) === 'object' || getTypeof(data[key]) === 'array') {
+                cloned[key] = Array.isArray(data[key]) ? [] : {}
+                stack.push({ data: data[key], cloned: cloned[key] })
+            } else {
+                cloned[key] = data[key]
             }
-        else
-            cloneData = { ...source }
-    } else {
-        cloneData = source;
+        }
     }
-    return cloneData as T;
+    return result as T
+}
+
+export function cloned<T>(source: T, options?: { deep: boolean, manual: boolean }): T {
+    if (options?.deep) {
+        return cloneDeep<T>(source)
+    }
+    return { ...source } as T
 }
 
 export function cloneReactive<T extends object>(source: T, options?: { deep: boolean, manual: boolean }) {
@@ -36,30 +39,6 @@ export function cloneReactive<T extends object>(source: T, options?: { deep: boo
         )
     }
     return value
-
 }
 
-export function cloneDeep<T extends object>(source: T) {
-    let id = 0
-    const cacheArray: any[] = [{ instance: source }]
-    const result = {}
-    let cach = result
-    const cacheSource = {}
-    let pop = cacheArray.pop()
 
-    while (pop) {
-        pop.id && (cach = cacheSource[pop.id])
-        Object.keys(pop.instance).forEach(key => {
-            if (getTypeof(pop.instance[key]) === 'object') {
-                cacheArray.push({ instance: pop.instance[key], id: id })
-                cacheSource[id] = {}
-                cach[key] = cacheSource[id]
-                id++
-            } else {
-                cach[key] = pop.instance[key]
-            }
-        })
-        pop = cacheArray.pop()
-    }
-    return result
-}
