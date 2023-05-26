@@ -8,9 +8,11 @@
   "scripts": {
     "docs:dev": "vitepress dev packages",
     "docs:build": "vitepress build packages",
-    "docs:serve": "vitepress serve packages"
+    "docs:serve": "vitepress serve packages",
+    "build":"vite build"
   },
   "devDependencies": {
+    "vite": "^4.3.8",
     "vitepress": "^1.0.0-alpha.76"
   },
   "dependencies": {
