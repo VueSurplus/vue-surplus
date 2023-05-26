@@ -6,9 +6,10 @@
 // export * from './useLoadScript'
 // export * from './useLoadScripts'
 // export * from './useThrottleFn'
-// export * from './useSyncQueue'
+
 // export * from './useLoadLinks'
 // export * from './useDeferredFn'
 
 export * from './useClone'
 export * from './useAssignDeep'
+export * from './useSyncQueue'

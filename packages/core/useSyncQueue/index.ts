@@ -1,11 +1,5 @@
 type queueNameType = string | Symbol | number | Object
-/**
- * @description: 队列
- * 优化：添加remove、stop、end、size、inculdes
- * @param {Map} map
- * @param {*} any
- * @return {*}
- */
+
 export function useCreateSyncQueue(map?: Map<queueNameType, any[]>) {
     const queueMap = map || new Map()
     function useSyncQueue(queueName: queueNameType): [typeof useAddQueue, typeof useDispatch] {

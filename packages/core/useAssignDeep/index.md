@@ -18,3 +18,7 @@ const assignState = useAssignDeep<{ name: string, type?: any }>(
 console.log(JSON.stringify(assignState)) 
 // {"name":"more","type":["number",{"text":"boolean","default":false}],"data":{"count":1}}
 ```
+
+## 使用场景
+
+使用reactive创建响应式变量需要批量修改对象属性值时，使用useAssignDeep更为方便。
