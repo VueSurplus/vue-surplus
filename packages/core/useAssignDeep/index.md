@@ -1,6 +1,6 @@
 # useAssignDeep
 
-深合并对象，类似object.assgin。
+深合并对象，类似 `object.assgin`。
 
 ## 使用
 
@@ -21,4 +21,4 @@ console.log(JSON.stringify(assignState))
 
 ## 使用场景
 
-使用reactive创建响应式变量需要批量修改对象属性值时，使用useAssignDeep更为方便。
+使用 `reactive` 创建响应式变量需要批量修改对象属性值时，使用 `useAssignDeep` 更为方便。

@@ -1,4 +1,4 @@
-import { UseUpdatePropOptions, useUpdateProp } from '../useUpdateProp'
+import { UseUpdatePropOptions, useUpdateProp } from '../useEmitProp'
 
 /**
  * @description: 批量设置更新props的属性

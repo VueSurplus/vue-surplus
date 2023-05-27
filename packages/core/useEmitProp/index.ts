@@ -1,7 +1,7 @@
-import { cloneDeep } from 'lodash-es'
+import { useClone } from '../useClone'
 import { UnwrapRef, computed, getCurrentInstance, ref, watch } from 'vue'
 
-export interface UseUpdatePropOptions {
+export interface EmitPropOptions {
     /**
      * passive设置是否采用change方式来构建受控组件
      * @default false
@@ -14,9 +14,9 @@ export interface UseUpdatePropOptions {
 }
 
 
-export function useUpdateProp<T extends object, K extends keyof T>(props: T, key?: K, options?: UseUpdatePropOptions): any
-export function useUpdateProp<T extends object, K extends keyof T>(props: T, options: UseUpdatePropOptions): any
-export function useUpdateProp<T extends object, K extends keyof T>(props: T, key: K = '' as K, options: UseUpdatePropOptions = {}): any {
+export function useEmitProp<T extends object, K extends keyof T>(props: T, key?: K, options?: EmitPropOptions): any
+export function useEmitProp<T extends object, K extends keyof T>(props: T, options: EmitPropOptions): any
+export function useEmitProp<T extends object, K extends keyof T>(props: T, key: K = '' as K, options: EmitPropOptions = {}): any {
     if (typeof key === 'object') {
         options = key
         key = 'modelValue' as K
@@ -36,7 +36,7 @@ export function useUpdateProp<T extends object, K extends keyof T>(props: T, key
     }
 
     if (typeof (props[key!] || defaultValue) === 'object') {
-        const proxy = ref<T[K]>(cloneDeep(props[key] || defaultValue))
+        const proxy = ref<T[K]>(useClone(props[key] || defaultValue,true))
         watch(
             () => props[key!],
             (v: T[K]) => {

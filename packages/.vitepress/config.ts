@@ -41,6 +41,12 @@ export default defineConfig({
             }, {
                 text: "useAssignDeep",
                 link: "/core/useAssignDeep/"
+            }, {
+                text: "useSyncQueue",
+                link: "/core/useSyncQueue/"
+            }, {
+                text: "useEmitProp",
+                link: "/core/useEmitProp/"
             }]
         }
     },
