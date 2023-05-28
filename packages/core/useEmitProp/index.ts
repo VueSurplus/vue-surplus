@@ -12,10 +12,10 @@ export interface EmitPropOptions {
      */
     defaultValue?: any
 }
-
 export function useEmitProp(key?: string): any
 export function useEmitProp(options: EmitPropOptions): any
-export function useEmitProp(key: string | EmitPropOptions | undefined, options: EmitPropOptions = {}): any {
+export function useEmitProp(key: string, options?: EmitPropOptions): any
+export function useEmitProp(key: string | EmitPropOptions = 'modelValue', options: EmitPropOptions = {}): any {
     if (typeof key === 'object') {
         options = key
         key = 'modelValue'

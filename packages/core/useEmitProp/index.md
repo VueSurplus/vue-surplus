@@ -41,4 +41,30 @@ const count = ref(0)
 
 ### props
 
+```html
+<!-- sub component -->
+<!-- sub.vue -->
+<script lang="ts" setup>
+import { useEmitProp } from 'vue-surplus';
+const props = defineProps<{ count: number }>()
+const count = useEmitProp('count')
+</script>
+<template>
+    <input v-model="count" />
+</template>
+```
+
+```html
+<!-- component -->
+<script lang="ts" setup>
+import { ref } from 'vue';
+import sub from './sub.vue'
+const count = ref(0)
+</script>
+<template>
+    <sub v-model:count="count"></sub>
+    <div>count:{{ count }}</div>
+</template>
+```
+
 <demo-props></demo-props>

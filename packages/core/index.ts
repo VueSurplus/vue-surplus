@@ -1,15 +1,5 @@
-// export * from './useUpdateProp'
-// export * from './useUpdateProps'
-// export * from './reactivePartial'
-// export * from './useInjectReadonly'
-// export * from './useLoadLink'
-// export * from './useLoadScript'
-// export * from './useLoadScripts'
-// export * from './useThrottleFn'
-
-// export * from './useLoadLinks'
-// export * from './useDeferredFn'
-
 export * from './useClone'
 export * from './useAssignDeep'
 export * from './useSyncQueue'
+export * from './useEmitProp'
+export * from './useEmitProps'

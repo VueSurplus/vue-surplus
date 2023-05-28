@@ -47,6 +47,15 @@ export default defineConfig({
             }, {
                 text: "useEmitProp",
                 link: "/core/useEmitProp/"
+            }, {
+                text: "useEmitProps",
+                link: "/core/useEmitProps/"
+            }, {
+                text: "useDeferredFn",
+                link: "/core/useDeferredFn/"
+            }, {
+                text: "useThrottleFn",
+                link: "/core/useThrottleFn/"
             }]
         }
     },
