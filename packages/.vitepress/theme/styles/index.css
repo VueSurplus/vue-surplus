@@ -27,3 +27,12 @@ body {
   --vp-c-text-code: var(--vp-c-green);
   --vp-c-mute: var(--vp-c-green-dimm-1)
 }
+
+input{
+  border: 1px solid #dcdfe6;
+  border-radius: 4px;
+  padding: 1px 11px;
+  line-height: 30px;
+  width: 250px;
+  margin: 10px 0;
+}

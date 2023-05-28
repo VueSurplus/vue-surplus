@@ -12,11 +12,11 @@
 <!-- sub.vue -->
 <script lang="ts" setup>
 import { useEmitProp } from 'vue-surplus';
-const props = defineProps<{ value: string }>()
-const modelValue = useEmitProp(props)
+const props = defineProps<{ modelValue: string }>()
+const modelValue = useEmitProp()
 </script>
 <template>
-    <input v-model="modelValue" />
+    <input v-model="modelValue"/>
 </template>
 ```
 
@@ -24,14 +24,21 @@ const modelValue = useEmitProp(props)
 <!-- component -->
 <script lang="ts" setup>
 import { sub } from 'sub.vue';
-const data=ref('')
+const count = ref(0)
 </script>
 <template>
     <sub v-model="modelValue"></sub>
+    <div> count: {{ count }}</div>
 </template>
 ```
 
+<script setup>
+    import demoVmodel from './demo/index.vue'
+    import demoProps from './demo/demo.vue'
+</script>
+
+<demo-vmodel></demo-vmodel>
+
 ### props
 
-
-## 使用场景
+<demo-props></demo-props>
