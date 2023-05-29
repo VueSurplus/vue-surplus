@@ -45,3 +45,4 @@ function deferredFn<T extends (...args: any[]) => any>(ms: number): (...args: an
 export function useDeferredFn<T extends (...args: any[]) => any>(fn: T, ms = 200): (...args: any[]) => Promise<ReturnType<T>> {
     return createWrapper<T>(deferredFn<T>(ms), fn)
 }
+

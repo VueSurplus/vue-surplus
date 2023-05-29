@@ -1,5 +1,4 @@
 import { defineConfig } from 'vitepress'
-import vuepressPluginAnchorRight from 'vuepress-plugin-anchor-right'
 
 export default defineConfig({
     title: 'VueSurplus',

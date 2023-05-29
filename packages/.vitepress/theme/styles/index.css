@@ -2,7 +2,7 @@ body,
 html {
   padding: 0;
   margin: 0;
-  background-color: #fff
+  background-color: var(--vp-c-bg)
 }
 
 body {
@@ -10,7 +10,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-size: 16px;
-  color: #2c3e50
+  color: var(--vp-c-text-1)
 }
 
 .vp-doc h2 {
@@ -29,7 +29,7 @@ body {
 }
 
 input{
-  border: 1px solid #dcdfe6;
+  border: 1px solid var(--vp-c-divider);
   border-radius: 4px;
   padding: 1px 11px;
   line-height: 30px;
