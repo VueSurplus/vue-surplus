@@ -32,11 +32,6 @@ const count = ref(0)
 </template>
 ```
 
-<script setup>
-    import demoVmodel from './demo/index.vue'
-    import demoProps from './demo/demo.vue'
-</script>
-
 <demo-vmodel></demo-vmodel>
 
 ### props
