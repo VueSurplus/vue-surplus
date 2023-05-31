@@ -1,12 +1,6 @@
-/**
- * @description: 优化点
- * 1.queue可以批量
- * 2.可以考虑去掉load:Promise，onloaded已经是配置回调了，但如果去掉了load，怎么捕获加载错误的信息
- * @return {*}
- */
 import { useScriptQueue } from '../queue/scriptQueue'
 
-export interface UseLoadScriptOptions {
+export interface LazyScriptOptions {
     type?: string
     async?: boolean
     crossorigin?: string
@@ -14,26 +8,18 @@ export interface UseLoadScriptOptions {
     attrs?: Record<string, string>
 }
 
-export interface UseLoadScriptReturn {
+export interface UseLazyScriptReturn {
     load: Promise<HTMLScriptElement>
     unload: () => void
 }
 
-/**
- * @description: 动态加载script标签hook
- * 参考 VueUse 的 useScriptTag 和 useStyleTag
- * @param {string} src
- * @param {function} onLoaded
- * @param {UseLoadLinkOptions} options
- * @return {*}
- */
-export function useLoadScript(src: string, onLoaded?: () => void, options?: UseLoadScriptOptions): UseLoadScriptReturn
-export function useLoadScript(src: string, options: UseLoadScriptOptions): UseLoadScriptReturn
-export function useLoadScript(
+export function useLazyScript(src: string, onLoaded?: () => void, options?: LazyScriptOptions): UseLazyScriptReturn
+export function useLazyScript(src: string, options: LazyScriptOptions): UseLazyScriptReturn
+export function useLazyScript(
     src: string,
-    onLoaded: (() => void) | UseLoadScriptOptions = () => {},
-    options: UseLoadScriptOptions = {}
-): UseLoadScriptReturn {
+    onLoaded: (() => void) | LazyScriptOptions = () => {},
+    options: LazyScriptOptions = {}
+): UseLazyScriptReturn {
     if (typeof onLoaded === 'object') {
         options = onLoaded
         onLoaded = () => {}

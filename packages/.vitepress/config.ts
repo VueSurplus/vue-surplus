@@ -55,6 +55,9 @@ export default defineConfig({
             }, {
                 text: "useThrottleFn",
                 link: "/core/useThrottleFn/"
+            }, {
+                text: "useLazyScript",
+                link: "/core/useLazyScript/"
             }]
         }
     },
