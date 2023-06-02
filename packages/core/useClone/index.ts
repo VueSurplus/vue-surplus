@@ -1,10 +1,11 @@
-import { cloned, cloneReactive } from "./clone";
+import { cloned, cloneReactive, cloneStructed } from "./clone";
 import { isReactive, isRef } from "vue";
 
 export interface cloneOptions<T = any> {
     deep?: boolean
     clone?: (source: T, deep?: { deep: boolean, manual: boolean }) => T
     manual?: boolean
+    structed?: boolean
 }
 
 export function useClone<T extends object>(source: T, deep: boolean)
@@ -12,11 +13,14 @@ export function useClone<T extends object>(source: T, options: cloneOptions | bo
     let deep: boolean = false
     let clone: ((source: T, deep?: { deep: boolean, manual: boolean }) => T) | undefined = undefined
     let manual: boolean = false
+    let structed: boolean = false
     if (typeof options === 'boolean') { deep = options }
-    else { ({ deep=false, clone, manual=false } = options) }
+    else { ({ deep=false, clone, manual=false, structed=false } = options) }
     if (isRef(source) || isReactive(source)) {
         clone ||= cloneReactive
-    } else {
+    } else if (structed) {
+        clone ||= cloneStructed
+    } {
         clone ||= cloned
     }
     return clone(source, { deep, manual })
