@@ -1,6 +1,6 @@
-import { UseLoadLinkOptions, UseLoadLinkReturn, useLoadLink } from '../useLoadLink'
+import { LazyLinkOptions, useLazyLink } from '../useLazyLink'
 
-export interface UseLoadLinksReturn {
+export interface UseLazyLinksReturn {
     load: Promise<any[]>
     unload: () => void
 }
@@ -13,13 +13,13 @@ export interface UseLoadLinksReturn {
  * @param {UseLoadLinkOptions} options
  * @return {*}
  */
-export function useLoadLinks(href: string[], onLoaded?: () => void, options?: UseLoadLinkOptions): UseLoadLinksReturn
-export function useLoadLinks(href: string[], options: UseLoadLinkOptions): UseLoadLinksReturn
-export function useLoadLinks(
+export function useLazyLinks(href: string[], onLoaded?: () => void, options?: LazyLinkOptions): UseLazyLinksReturn
+export function useLazyLinks(href: string[], options: LazyLinkOptions): UseLazyLinksReturn
+export function useLazyLinks(
     href: string[],
-    onLoaded: (() => void) | UseLoadLinkOptions = () => {},
-    options: UseLoadLinkOptions = {}
-): UseLoadLinksReturn {
+    onLoaded: (() => void) | LazyLinkOptions = () => {},
+    options: LazyLinkOptions = {}
+): UseLazyLinksReturn {
     if (typeof onLoaded === 'object') {
         options = onLoaded
         onLoaded = () => {}
@@ -27,7 +27,7 @@ export function useLoadLinks(
     const loads: any[] = []
     const unloads: any[] = []
     href.forEach((item) => {
-        const { load, unload } = useLoadLink(item, options)
+        const { load, unload } = useLazyLink(item, options)
         loads.push(load)
         unloads.push(unload)
     })

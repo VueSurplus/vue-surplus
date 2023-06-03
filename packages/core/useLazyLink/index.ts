@@ -1,5 +1,5 @@
 import { useLinkQueue } from '../queue/linkQueue'
-export interface UseLoadLinkOptions {
+export interface LazyLinkOptions {
     type?: string
     rel?:
         | 'alternate'
@@ -18,7 +18,7 @@ export interface UseLoadLinkOptions {
     attrs?: Record<string, string>
 }
 
-export interface UseLoadLinkReturn {
+export interface UseLazyLinkReturn {
     load: Promise<HTMLLinkElement>
     unload: () => void
 }
@@ -31,13 +31,13 @@ export interface UseLoadLinkReturn {
  * @param {UseLoadLinkOptions} options
  * @return {*}
  */
-export function useLoadLink(href: string, onLoaded?: () => void, options?: UseLoadLinkOptions): UseLoadLinkReturn
-export function useLoadLink(href: string, options: UseLoadLinkOptions): UseLoadLinkReturn
-export function useLoadLink(
+export function useLazyLink(href: string, onLoaded?: () => void, options?: LazyLinkOptions): UseLazyLinkReturn
+export function useLazyLink(href: string, options: LazyLinkOptions): UseLazyLinkReturn
+export function useLazyLink(
     href: string,
-    onLoaded: (() => void) | UseLoadLinkOptions = () => {},
-    options: UseLoadLinkOptions = {}
-): UseLoadLinkReturn {
+    onLoaded: (() => void) | LazyLinkOptions = () => {},
+    options: LazyLinkOptions = {}
+): UseLazyLinkReturn {
     if (typeof onLoaded === 'object') {
         options = onLoaded
         onLoaded = () => {}
