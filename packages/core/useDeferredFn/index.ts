@@ -7,7 +7,7 @@ function createWrapper<T extends (...args: any[]) => any>(executor: (...args: an
 }
 
 function deferredFn<T extends (...args: any[]) => any>(ms: number): (...args: any[]) => any {
-    let timer: NodeJS.Timeout | null = null
+    let timer:number|null = null
     let isSetting = false
     let lastValue: Promise<ReturnType<T>> | ReturnType<T>
     function clear() {

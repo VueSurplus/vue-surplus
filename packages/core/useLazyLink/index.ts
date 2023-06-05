@@ -23,14 +23,6 @@ export interface UseLazyLinkReturn {
     unload: () => void
 }
 
-/**
- * @description: 动态加载link标签hook
- * 参考 VueUse 的 useScriptTag 和 useStyleTag
- * @param {string} href
- * @param {function} onLoaded
- * @param {UseLoadLinkOptions} options
- * @return {*}
- */
 export function useLazyLink(href: string, onLoaded?: () => void, options?: LazyLinkOptions): UseLazyLinkReturn
 export function useLazyLink(href: string, options: LazyLinkOptions): UseLazyLinkReturn
 export function useLazyLink(
