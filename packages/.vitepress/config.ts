@@ -5,7 +5,7 @@ export default defineConfig({
     description: 'A composition function toolset of vue3',
     lang: 'en-US',
     ignoreDeadLinks: true,
-    base: '/vuesurplus-docs',
+    base: '/vue-surplus',
     head: [
         ['link', { rel: 'icon', href: 'logo.png' }]
     ],
