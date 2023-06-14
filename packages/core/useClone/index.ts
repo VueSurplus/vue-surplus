@@ -7,13 +7,12 @@ export interface cloneOptions<T = any> {
     manual?: boolean
     structed?: boolean
 }
-
-export function useClone<T extends object>(source: T, deep: boolean)
-export function useClone<T extends object>(source: T, options: cloneOptions | boolean = {}): T {
+export function useClone<T extends object>(source: T, options?: cloneOptions | boolean):any{
     let deep: boolean = false
     let clone: ((source: T, deep?: { deep: boolean, manual: boolean }) => T) | undefined = undefined
     let manual: boolean = false
     let structed: boolean = false
+    options||={}
     if (typeof options === 'boolean') { deep = options }
     else { ({ deep=false, clone, manual=false, structed=false } = options) }
     if (isRef(source) || isReactive(source)) {
