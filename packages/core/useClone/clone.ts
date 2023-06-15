@@ -41,11 +41,11 @@ export function cloneReactive<T extends object>(source: T, options?: { deep: boo
     return value
 }
 
-export function cloneStructed<T extends object>(source:T,options?:{deep:boolean,manual:boolean}){
-    if(options?.deep&&window.structuredClone){
-        return window.structuredClone(source)
-    }else{
-        return cloned(source,options)
+export function cloneStructed<T extends object>(source: T, options?: { deep: boolean, manual: boolean }) {
+    if (options?.deep && structuredClone) {
+        return structuredClone(source)
+    } else {
+        return cloned(source, options)
     }
 }
 

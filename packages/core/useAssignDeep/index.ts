@@ -3,7 +3,7 @@ import { getTypeof } from "../utils/getTypeOf";
 
 export function useAssignDeep<T extends object>(target: T, ...sources: T[]): T {
     if (!sources.length) return target
-    const stack: any[] = [{ data: target, mergeData: null }]
+    const stack: any[] = [{ data: target, mergeData: undefined }]
     sources.forEach(source => {
         while (stack.length) {
             const { data, mergeData = source } = stack.pop()
