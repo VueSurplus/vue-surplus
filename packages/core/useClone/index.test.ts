@@ -6,7 +6,7 @@ const state = {
     text: 'demo',
     data: { count: 0 }
 }
-describe('onLongPress', () => {
+describe('useClone', () => {
     it('deep is true', () => {
         const stateCloned = useClone(state, true)
         expect(stateCloned.data == state.data).toBe(false)
