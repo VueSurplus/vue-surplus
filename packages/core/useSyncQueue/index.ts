@@ -10,7 +10,7 @@ export function useCreateSyncQueue(map?: Map<queueNameType, any[]>) {
             queueMap.set(queueName, queue)
         }
         function useDispatch(value?: any) {
-            if (!queue) return
+            if (!queue.length) return
             let fn = queue.shift()
             while (fn) {
                 value = fn(value) || value
