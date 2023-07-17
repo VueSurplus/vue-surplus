@@ -1,7 +1,3 @@
-/**
- * 4.处理各种类型复制
- * 5.处理sysmbol 为key
- */
 import { getTypeof } from "../utils/getTypeOf";
 
 export function baseCloneDeep<T extends Object>(source: T) {

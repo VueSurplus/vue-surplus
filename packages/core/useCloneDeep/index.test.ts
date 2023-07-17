@@ -41,11 +41,9 @@ describe('useCloneDeep', () => {
         expect(stateCloned == a).toBe(false)
     })
     it('clone array', () => {
-        var b = {}
-        var a = { state: [state], b: b }
-        b.a = a
-        const stateCloned = useCloneDeep(a)
-        expect(stateCloned == a).toBe(false)
+        const target = [{ state: [state] }]
+        const stateCloned = useCloneDeep(target, { original: true })
+        expect(stateCloned == target).toBe(false)
     })
 
     it('reactive is true', () => {

@@ -21,7 +21,7 @@ export default defineConfig({
         ],
         nav: [
             { text: "文档", link: "/guide/" },
-            { text: "API", link: '/core/useClone/' }
+            { text: "API", link: '/core/useCloneDeep/' }
         ],
         sidebar: {
             "/guide/": [{
@@ -35,8 +35,8 @@ export default defineConfig({
                 ]
             }],
             "/core/": [{
-                text: "useClone",
-                link: "/core/useClone/"
+                text: "useCloneDeep",
+                link: "/core/useCloneDeep/"
             }, {
                 text: "useAssignDeep",
                 link: "/core/useAssignDeep/"

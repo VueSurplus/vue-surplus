@@ -1,4 +1,4 @@
-import { useClone } from '../useClone'
+import { useCloneDeep } from '../useCloneDeep'
 import { UnwrapRef, computed, getCurrentInstance, ref, watch } from 'vue'
 
 export interface EmitPropOptions {
@@ -38,7 +38,7 @@ export function useEmitProp(key: string | EmitPropOptions = 'modelValue', option
     }
 
     if (typeof (props[key!] || defaultValue) === 'object') {
-        const proxy = ref(useClone(props[key] || defaultValue, true))
+        const proxy = ref(useCloneDeep(props[key] || defaultValue))
         watch(
             () => props[<string>key!],
             (v) => {
