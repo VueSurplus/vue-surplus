@@ -1,17 +1,21 @@
-export function getTypeof(source:any){
-    const map = {
-        "[object Number]": "number",
-        "[object Boolean]": "boolean",
-        "[object String]": "string",
-        "[object Function]": "function",
-        "[object Array]": "array",
-        "[object Object]": "object",
-        "[object Null]": "null",
-        "[object Undefined]": "undefined",
-        "[object Date]": "date",
-        "[object RegExp]": "regexp",
-        "[Object Symbol]":"symbol"
-      };
-      const toString = Object.prototype.toString;
-      return map[toString.call(source)];
+export function getTypeof<T>(source: T): string {
+  let stringTag
+  let typeName
+  let isReadOnly = false
+  const getTypeName = (source) => Object.prototype.toString.call(source).slice(8, -1).toLowerCase()
+  try {
+    stringTag = source[Symbol.toStringTag]
+    source[Symbol.toStringTag] = undefined
+  } catch (error) {
+    isReadOnly = true
+  }
+  typeName = getTypeName(source)
+  if (!isReadOnly && typeof source === 'object' && source !== null) {
+    if (source.hasOwnProperty(Symbol.toStringTag)) {
+      source[Symbol.toStringTag] = stringTag
+    } else {
+      delete source[Symbol.toStringTag]
+    }
+  }
+  return typeName
 }
