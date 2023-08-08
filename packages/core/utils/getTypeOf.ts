@@ -1,4 +1,6 @@
-export function getTypeof<T>(source: T): string {
+export type TypeName='string'|'number'|'object'|'array'|'set'|'map'|'symbol'|'function'|'boolean'|'date'
+
+export function getTypeof<T>(source: T): TypeName {
   let stringTag
   let typeName
   let isReadOnly = false

@@ -1,4 +1,4 @@
-export * from './useClone'
+export * from './useCloneDeep'
 export * from './useAssignDeep'
 export * from './useSyncQueue'
 export * from './useEmitProp'
