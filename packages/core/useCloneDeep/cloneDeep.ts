@@ -1,6 +1,4 @@
-// 处理值类型：
-// set和map 处理
-import { getTypeof,TypeName } from "../utils/getTypeOf";
+import { getTypeof, TypeName } from "../utils/getTypeOf";
 
 function initCloneByTag<T>(value: T): T {
   const initObjectMap = {
@@ -8,15 +6,42 @@ function initCloneByTag<T>(value: T): T {
     date: Date,
     number: Number,
     string: String,
-    set:Set,
+    array: [],
+    object: Object.create(null),
+    set: Set,
+    map: Map,
   };
-  const tag:TypeName= getTypeof(value);
-  if (tag === "boolean" || tag === "date") {
-    return <T>new initObjectMap[tag](Number(value));
-  } else if (tag === "number" || tag === "string") {
-    return <T>new initObjectMap[tag](value);
-  }else {
-    return value;
+  const tag: TypeName = getTypeof(value);
+  const InitObject = initObjectMap[tag];
+  if (value === null || typeof value !== "object") return value;
+  switch (tag) {
+    case "boolean":
+    case "date":
+      return new InitObject(+value) as T;
+    case "number":
+    case "string":
+      return new InitObject(value) as T;
+    case "array":
+    case "object":
+      return InitObject as T;
+    case "set":
+    case "map":
+      return new InitObject() as T;
+  }
+  return value;
+}
+
+function forEach(source: object, tag: TypeName, callBack: (v, k?) => void) {
+  switch (tag) {
+    case "object":
+      Object.keys(source).forEach((key) => callBack(source[key], key));
+      break;
+    case "set":
+      (source as Set<any>).forEach((key) => callBack(key));
+      break;
+    case "map":
+      (source as Map<any, any>).forEach((value, key) => callBack(value, key));
+      break;
   }
 }
 
@@ -41,20 +66,26 @@ export function originalCloneDeep<T extends Object>(
   const stack = [{ target: result, source }];
   while (stack.length) {
     const { source, target } = stack.pop()!;
-    for (let key in source) {
+    const tag: TypeName = getTypeof(source);
+
+    forEach(source, tag, (value, key) => {
+      const valueTag = getTypeof(value);
+      let cloneObject =
+        cacheMap.get(<Object>source[key]) || initCloneByTag(value);
+      tag === "set" && target.add(cloneObject);
+      tag === "map" && target.set(key, cloneObject);
+      tag === "object" && (target[key] = cloneObject);
       if (
-        source.hasOwnProperty(key) &&
-        (getTypeof(source[key]) === "object" ||
-          getTypeof(source[key]) === "array") &&
-        !cacheMap.has(<Object>source[key])
+        ((valueTag === "object" && source.hasOwnProperty(key)) ||
+          valueTag === "array" ||
+          valueTag === "set" ||
+          valueTag === "map") &&
+        !cacheMap.has(<Object>value)
       ) {
-        target[key] = Array.isArray(source[key]) ? [] : Object.create(null);
-        stack.push({ source: <any>source[key], target: target[key] });
-        cacheMap.set(<Object>source[key], target[key]);
-      } else {
-        target[key] = cacheMap.get(<Object>source[key]) || initCloneByTag(source[key]);
+        stack.push({ source: <any>value, target: cloneObject });
+        cacheMap.set(<Object>value, cloneObject);
       }
-    }
+    });
   }
   return result;
 }

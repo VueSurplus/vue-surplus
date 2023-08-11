@@ -2,9 +2,15 @@ import { expect, it, describe } from 'vitest'
 import { useCloneDeep } from './index'
 import { isReactive, reactive, watch } from 'vue'
 
+const sourceMap=new Map()
+sourceMap.set('map','test')
 const state = {
     text: 'demo',
-    data: { count: 0 }
+    data: { count: 0 },
+    bool:new Boolean(1),
+    number:new Number(10),
+    set:new Set([1,2,3]),
+    map:sourceMap
 }
 describe('useCloneDeep', () => {
     it('use structedClone', () => {
@@ -15,12 +21,12 @@ describe('useCloneDeep', () => {
         expect(stateCloned == state).toBe(false)
     })
     it('use cloneDeep', () => {
-        const state = { text: 'demo', data: { count: 0 }, callback: () => { } }
-        const stateCloned = useCloneDeep(state)
-        expect(stateCloned.data == state.data).toBe(false)
-        expect(stateCloned.text).toBe(state.text)
-        expect(stateCloned.data.count).toBe(state.data.count)
-        expect(stateCloned == state).toBe(false)
+        const newState = { ...state, callback: () => { } }
+        const stateCloned = useCloneDeep(newState)
+        expect(stateCloned.data == newState.data).toBe(false)
+        expect(stateCloned.text).toBe(newState.text)
+        expect(stateCloned.data.count).toBe(newState.data.count)
+        expect(stateCloned == newState).toBe(false)
     })
     it('use JSON', () => {
         structuredClone = undefined
