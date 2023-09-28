@@ -46,7 +46,7 @@ console.log(stateRefCloned) // { count: 0, text: 'demo' }
 console.log(stateReactiveCloned) // { count: 0, text: 'demo' }
 ```
 
-### 复制对象同步响应对象的值变动
+### 复制对象同步响应目标对象的值变动
 
 ```js
 import { reactive, watch } from 'vue';

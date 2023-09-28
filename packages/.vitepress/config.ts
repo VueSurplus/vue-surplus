@@ -67,6 +67,12 @@ export default defineConfig({
             }, {
                 text: "useLazyLinks",
                 link: "/core/useLazyLinks/"
+            },{
+                text:"useCreateStore",
+                link:"/core/useCreateStore/"
+            },{
+                text:"useCreateInjection",
+                link:"/core/useCreateInjection/"
             }]
         }
     },

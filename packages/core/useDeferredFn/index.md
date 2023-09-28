@@ -27,3 +27,9 @@ const handleDeferred = () => {
 ## 使用场景
 
 发送请求时往往会加个loading提示用户正在加载，但如果请求响应很快的情况下，loading一闪而过反而用户体验不好，useDeferredFn可以让请求响应很快情况下不显示loading。
+
+<demo />
+
+<script setup>
+import demo from './demo.vue'
+</script>

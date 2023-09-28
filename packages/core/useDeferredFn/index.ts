@@ -1,40 +1,35 @@
-function createWrapper<T extends (...args: any[]) => any>(executor: (...args: any[]) => any, fn: T) {
-    return function (): Promise<ReturnType<T>> {
-        return new Promise<Awaited<ReturnType<T>>>((resolve, inject) => {
-            Promise.resolve(executor(fn)).then(resolve, inject)
-        })
-    }
+let timer: any = null;
+let isSetting = false;
+
+function clear() {
+  if (timer) {
+    clearTimeout(timer);
+    timer = null;
+  }
 }
 
-function deferredFn<T extends (...args: any[]) => any>(ms: number): (...args: any[]) => any {
-    let timer:number|null = null
-    let isSetting = false
-    let lastValue: Promise<ReturnType<T>> | ReturnType<T>
-    function clear() {
-        if (timer) {
-            clearTimeout(timer)
-            timer = null
-        }
+function deferredFn<T extends (...args: any[]) => any>(
+  fn: T,
+  ms: number
+): Promise<ReturnType<T>> | undefined {
+  let lastValue: Promise<ReturnType<T>> | undefined = undefined;
+  if (timer) {
+    clear();
+  } else {
+    if (isSetting) {
+      lastValue = Promise.resolve(fn());
+      isSetting = !isSetting;
+    } else {
+      lastValue = new Promise((resolve, inject) => {
+        timer = setTimeout(() => {
+          isSetting = !isSetting;
+          clear();
+          resolve(fn());
+        }, ms);
+      });
     }
-    return function (fn: T): Promise<ReturnType<T>> | ReturnType<T> {
-        if (timer) {
-            clear()
-        } else {
-            if (isSetting) {
-                lastValue = fn()
-                isSetting = !isSetting
-            } else {
-                lastValue = new Promise((resolve, inject) => {
-                    timer = setTimeout(() => {
-                        isSetting = !isSetting
-                        clear()
-                        resolve(fn())
-                    }, ms)
-                })
-            }
-        }
-        return lastValue
-    }
+  }
+  return lastValue;
 }
 
 /**
@@ -42,7 +37,9 @@ function deferredFn<T extends (...args: any[]) => any>(ms: number): (...args: an
  * @param {array} args
  * @return {*}
  */
-export function useDeferredFn<T extends (...args: any[]) => any>(fn: T, ms = 200): (...args: any[]) => Promise<ReturnType<T>> {
-    return createWrapper<T>(deferredFn<T>(ms), fn)
+export function useDeferredFn<T extends (...args: any[]) => any>(
+  fn: T,
+  ms = 200
+): (...args: any[]) => Promise<ReturnType<T>> | undefined {
+  return () => deferredFn<T>(fn, ms);
 }
-

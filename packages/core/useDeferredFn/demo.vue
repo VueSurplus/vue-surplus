@@ -6,7 +6,7 @@ const changLoading = () => {
     loading.value = !loading.value
 }
 
-const handleDeferred = useDeferredFn(changLoading)
+const handleDeferred = useDeferredFn(changLoading,2000)
 
 
 </script>
