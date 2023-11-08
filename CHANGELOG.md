@@ -4,18 +4,42 @@
 
 ### Added
 
+- 添加视频录制函数
+- useDraggable
+
+## [0.1.3.2]
+
+### Added
+
+- useVModel
+- 添加github关键字搜索
+- useAssignDeep
+
+### Changed
+
+- 优化useEmitProp和useEmitProps
+- 打包工具vite换成rollup+Monorepo
+- 整理函数的demo在文档中显示
+
+## [0.1.3.1]
+
+### Added
+
 - 添加tag
+- 创建分支
 
 ### Changed
 
 - 优化文档：添加实例组件
+- 优化useThrottleFn
+- 优化useLazyScript和useLazyScripts
 
 ## [0.1.3]
 
 ### Added
 
-- 新增 createGlobalState 函数
-- 新增 createInjectionState 函数
+- 新增 useCreateStore 函数
+- 新增 useCreateInjection 函数
 
 ### Changed
 

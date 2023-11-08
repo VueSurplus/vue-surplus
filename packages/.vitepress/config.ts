@@ -59,9 +59,6 @@ export default defineConfig({
                 text: "useLazyScript",
                 link: "/core/useLazyScript/"
             }, {
-                text: "useLazyScripts",
-                link: "/core/useLazyScripts/"
-            }, {
                 text: "useLazyLink",
                 link: "/core/useLazyLink/"
             }, {

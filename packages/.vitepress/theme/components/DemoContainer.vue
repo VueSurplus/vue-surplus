@@ -1,16 +1,20 @@
 <script lang="ts" setup>
-import demo from '../../../core/useAssignDeep/demo.vue'
-import { cloneDeep } from '../../../core/useClone/clone';
+import { shallowRef } from 'vue';
 
-const props = defineProps<{ moduleName: object }>()
-
-console.log(cloneDeep({ a: 1, b: { c: 1 } }))
-
+const modules = import.meta.glob('../../../core/**/demo.vue')
+const props = defineProps<{ moduleName: string }>()
+const demo = shallowRef(null)
+for (const path in modules) {
+    if (path.includes(props.moduleName)) {
+        modules[path]().then((mod) => {
+            demo.value = mod.default
+        })
+    }
+}
 </script>
 <template>
     <div class="demo-wrapper">
-        <demo></demo>
-        <!-- <component :is="props.moduleName"></component> -->
+        <component v-if="demo" :is="demo"></component>
     </div>
 </template>
 <style scoped>

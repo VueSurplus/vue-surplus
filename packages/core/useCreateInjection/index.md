@@ -1,6 +1,6 @@
 # useCreateInjection
 
-创建全局状态
+创建Inject/Provide
 
 ## 使用
 
